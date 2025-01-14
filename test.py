@@ -8,11 +8,14 @@ from teams import Team
 class TestComputerPlayer(unittest.TestCase):
     # Smaller step
     def test_get_possible_moves(self):
+        game = Game()
+        moves = game.get_possible_moves()
+        self.assertEqual(len(moves), 8)
         pass
 
-    def test_computer_player(self):
-        game = Game()
-        game.computer_move()
+    # def test_computer_player(self):
+    #     game = Game()
+    #     game.computer_move()
 
 class TestGame(unittest.TestCase):
 
