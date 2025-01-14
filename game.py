@@ -44,6 +44,9 @@ class Game():
     def get_possible_moves(self):
         return self.board.get_possible_moves(self) 
 
+    def is_over(self):
+        return self.winner is not None
+
     def computer_move(self):
         if self.winner is not None:
             return
