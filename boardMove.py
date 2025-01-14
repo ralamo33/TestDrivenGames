@@ -1,4 +1,3 @@
-from coordinate import Coordinate
 from move import Move
 from piece import Piece
 from pieceDirection import PieceDirection
@@ -37,7 +36,7 @@ class BoardMove():
             return (False, "Invalid space selected")
         if self.destination_space is None:
             return (False, "Destination not on board")
-        if self.game.must_double_jump_coordinate is not None and self.game.must_double_jump_coordinate != Coordinate(self.fromRow, self.fromCol):
+        if self.game.must_double_jump_coordinate is not None and self.game.must_double_jump_coordinate != (self.fromRow, self.fromCol):
             return (False, "Must perform double jump.")
         
         piece = self.from_space.get_piece()
