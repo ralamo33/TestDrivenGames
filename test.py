@@ -6,12 +6,22 @@ from space import Space
 from teams import Team
 
 class TestComputerPlayer(unittest.TestCase):
+    def setUp(self):
+        self.game = Game()
+
     # Smaller step
-    def test_get_possible_moves(self):
-        game = Game()
-        moves = game.get_possible_moves()
-        self.assertEqual(len(moves), 8)
-        pass
+    def test_get_starting_moves(self):
+        moves = self.game.get_possible_moves()
+        self.assertEqual(7, len(moves))
+    
+    def test_advanced_moves(self):
+        self.game.move(2, 1, 3, 0)
+        self.game.move(5, 0, 4, 1)
+        self.game.move(2, 3, 3, 2)
+        self.game.move(5, 2, 4, 3)
+        self.game.move(1, 2, 2, 3)
+        moves = self.game.get_possible_moves()
+        self.assertEqual(8, len(moves))
 
     # def test_computer_player(self):
     #     game = Game()
@@ -143,7 +153,6 @@ class DoubleJumpTests(unittest.TestCase):
     def test_double_jump(self):
         double_jump_piece = self.board.get_space(1, 0).piece
         self.board.move(1, 0, 3, 2)
-        print(self.board.display())
         self.board.move(3, 2, 5, 0)
         self.assertEqual(double_jump_piece, self.board.get_space(5, 0).get_piece())
         self.assertTrue(self.board.get_space(2, 1).is_empty())

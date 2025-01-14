@@ -1,8 +1,6 @@
-from cordinate import Coordinate
+from coordinate import Coordinate
 from piece import Piece
 from pieceDirection import PieceDirection
-from space import Space
-from teams import Team
 
 
 class BoardMove():
@@ -38,7 +36,7 @@ class BoardMove():
             return (False, "Invalid space selected")
         if self.destination_space is None:
             return (False, "Destination not on board")
-        if self.game.must_double_jump_cordinate is not None and self.game.must_double_jump_cordinate != Coordinate(self.fromRow, self.fromCol):
+        if self.game.must_double_jump_coordinate is not None and self.game.must_double_jump_coordinate != Coordinate(self.fromRow, self.fromCol):
             return (False, "Must perform double jump.")
         
         piece = self.from_space.get_piece()

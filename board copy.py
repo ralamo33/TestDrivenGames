@@ -1,4 +1,5 @@
 from boardMove import BoardMove
+from coordinate import Coordinate
 from piece import Piece
 from pieceDirection import PieceDirection
 from space import Space
@@ -15,9 +16,11 @@ class Board():
             self.board.append(row)
         self._add_starting_pieces()
     
-    def get_space(self, row, col) -> Space:
+    def get_space_from_coordinate(self, coordinate: Coordinate) -> Space:
         row_len = len(self.board)
         col_len = len(self.board[0])
+        row = coordinate.row
+        col = coordinate.col
         if row >= 0 and col >= 0 and row < row_len and col < col_len:
             return self.board[row][col]
         return None
@@ -69,33 +72,32 @@ class Board():
 
     def _add_starting_pieces(self):
         white_board = [
-            self.get_space(0, 1),
-            self.get_space(0, 3),
-            self.get_space(0, 5),
-            self.get_space(0, 7),
-            self.get_space(1, 0),
-            self.get_space(1, 2),
-            self.get_space(1, 4),
-            self.get_space(1, 6),
-            self.get_space(2, 1),
-            self.get_space(2, 3),
-            self.get_space(2, 5),
-            self.get_space(2, 7),
+            self.get_space_from_coordinate(Coordinate(0, 1)),
+            self.get_space_from_coordinate(Coordinate(0, 3)),
+            self.get_space_from_coordinate(Coordinate(0, 5)),
+            self.get_space_from_coordinate(Coordinate(0, 7)),
+            self.get_space_from_coordinate(Coordinate(1, 0)),
+            self.get_space_from_coordinate(Coordinate(1, 2)),
+            self.get_space_from_coordinate(Coordinate(1, 4)),
+            self.get_space_from_coordinate(Coordinate(1, 6)),
+            self.get_space_from_coordinate(Coordinate(2, 1)),
+            self.get_space_from_coordinate(Coordinate(2, 3)),
+            self.get_space_from_coordinate(Coordinate(2, 5)),
+            self.get_space_from_coordinate(Coordinate(2, 7)),
         ]
         black_board = [
-            self.get_space(5, 0),
-            self.get_space(5, 2),
-            self.get_space(5, 4),
-            self.get_space(5, 6),
-            self.get_space(6, 1),
-            self.get_space(6, 3),
-            self.get_space(6, 5),
-            self.get_space(6, 7),
-
-            self.get_space(7, 0),
-            self.get_space(7, 2),
-            self.get_space(7, 4),
-            self.get_space(7, 6),
+            self.get_space_from_coordinate(Coordinate(5, 0)),
+            self.get_space_from_coordinate(Coordinate(5, 2)),
+            self.get_space_from_coordinate(Coordinate(5, 4)),
+            self.get_space_from_coordinate(Coordinate(5, 6)),
+            self.get_space_from_coordinate(Coordinate(6, 1)),
+            self.get_space_from_coordinate(Coordinate(6, 3)),
+            self.get_space_from_coordinate(Coordinate(6, 5)),
+            self.get_space_from_coordinate(Coordinate(6, 7)),
+            self.get_space_from_coordinate(Coordinate(7, 0)),
+            self.get_space_from_coordinate(Coordinate(7, 2)),
+            self.get_space_from_coordinate(Coordinate(7, 4)),
+            self.get_space_from_coordinate(Coordinate(7, 6)),
         ]
         for space in white_board:
             space.add_piece(Piece(PieceDirection.DOWN, Team.WHITE))
