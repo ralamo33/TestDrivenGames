@@ -1,14 +1,15 @@
 from coordinate import Coordinate
+from move import Move
 from piece import Piece
 from pieceDirection import PieceDirection
 
 
 class BoardMove():
-    def __init__(self, fromRow: int, fromCol: int, toRow: int, toCol: int, game):
-        self.fromRow = fromRow
-        self.fromCol = fromCol
-        self.toRow = toRow
-        self.toCol = toCol
+    def __init__(self, move: Move, game):
+        self.fromRow = move.fromRow
+        self.fromCol = move.fromCol
+        self.toRow = move.toRow
+        self.toCol = move.toCol
         self.game = game
         self.from_space = self.game.get_space(self.fromRow, self.fromCol)
         self.destination_space = self.game.get_space(self.toRow, self.toCol)
@@ -55,7 +56,6 @@ class BoardMove():
             return (False, "Wrong destination")
 
         if abs(self.fromCol - self.toCol) == 2:
-
             if not self.is_valid_jump(piece,):
                 return (False, "No enemy to jump over")
 
@@ -66,7 +66,7 @@ class BoardMove():
             return (False, "No enemy to jump over")
         self.jump_space.delete_piece()
         self.finalize_move(piece)
-        if self.has_double_jump(piece):
+        if self.has_double_jump():
             self.game.set_must_double_jump_next(self.toRow, self.toCol)
         else:
             self.game.change_turn() 
@@ -78,7 +78,7 @@ class BoardMove():
         jump_piece = self.jump_space.get_piece()
         return piece.is_enemy(jump_piece)
     
-    def has_double_jump(self, piece: Piece):
+    def has_double_jump(self):
         spots_to_check = []
         spots_to_check.append((self.toRow + 2, self.toCol + 2))
         spots_to_check.append((self.toRow + 2, self.toCol - 2))
@@ -86,7 +86,7 @@ class BoardMove():
         spots_to_check.append((self.toRow - 2, self.toCol - 2))
 
         for spot in spots_to_check:
-            boardMove = BoardMove(self.toRow, self.toCol, spot[0], spot[1], self.game)
+            boardMove = BoardMove(Move(self.toRow, self.toCol, spot[0], spot[1]), self.game)
             response = boardMove.is_valid_with_explanation()
             if response[0]:
                 return True

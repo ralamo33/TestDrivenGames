@@ -1,4 +1,5 @@
 from boardMove import BoardMove
+from move import Move
 from piece import Piece
 from pieceDirection import PieceDirection
 from space import Space
@@ -45,7 +46,7 @@ class Board():
                 moves_to_check = self.get_moves_to_check(r_idx, c_idx)
                 for move in moves_to_check:
                     (r, c) = move
-                    boardMove = BoardMove(r_idx, c_idx, r, c, game)
+                    boardMove = BoardMove(Move(r_idx, c_idx, r, c), game)
                     is_valid_with_explanation = boardMove.is_valid_with_explanation()
                     if is_valid_with_explanation[0]:
                         moves.append((r, c))

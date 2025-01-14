@@ -1,6 +1,7 @@
 from board import Board
 from boardMove import BoardMove
 from coordinate import Coordinate
+from move import Move
 from space import Space
 from teams import Team
 
@@ -11,8 +12,8 @@ class Game():
         self.turn = Team.WHITE
         self.must_double_jump_coordinate = None
     
-    def move(self, row: int, col: int, toRow: int, toCol: int):
-        boardMove = BoardMove(row, col, toRow, toCol, self)
+    def move(self, move: Move):
+        boardMove = BoardMove(move, self)
         (is_valid, message) = boardMove.handle_move()
         if not is_valid:
             raise ValueError(message)
