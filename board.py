@@ -35,38 +35,38 @@ class Board():
         return display_str
 
     def get_possible_moves(self, game):
-        moves = [] 
-        for r_idx, row in enumerate(self.board):
-            for c_idx, space in enumerate(row):
+        moves: list[Move] = [] 
+        for fromRow, row in enumerate(self.board):
+            for fromCol, space in enumerate(row):
                 if space.is_empty():
                     continue
                 piece = space.get_piece()
                 if not piece.on_team(game.turn):
                     continue
-                moves_to_check = self.get_moves_to_check(r_idx, c_idx)
-                for move in moves_to_check:
-                    (r, c) = move
-                    boardMove = BoardMove(Move(r_idx, c_idx, r, c), game)
+                destinations = self._get_possible_destinations(fromRow, fromCol)
+                for destination in destinations:
+                    (toRow, toCol) = destination
+                    boardMove = BoardMove(Move(fromRow, fromCol, toRow, toCol), game)
                     is_valid_with_explanation = boardMove.is_valid_with_explanation()
                     if is_valid_with_explanation[0]:
-                        moves.append((r, c))
+                        moves.append(Move(fromRow, fromCol, toRow, toCol))
         return moves
 
     
-    def get_moves_to_check(self, row: int, col: int):
-        standard_moves = [
+    def _get_possible_destinations(self, row: int, col: int):
+        standard_destinations = [
             (row + 1, col + 1),
             (row + 1, col + -1),
             (row + -1, col + 1),
             (row + -1, col + -1)
         ]
-        jump_moves = [
+        jump_destinations = [
             (row + 2, col + 2),
             (row + 2, col + -2),
             (row + -2, col + 2),
             (row + -2, col + -2)
         ]
-        return standard_moves + jump_moves
+        return standard_destinations + jump_destinations
 
     def _add_starting_pieces(self):
         white_board = [

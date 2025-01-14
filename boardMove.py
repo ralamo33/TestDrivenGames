@@ -65,6 +65,7 @@ class BoardMove():
             return (False, "No enemy to jump over")
         self.jump_space.delete_piece()
         self.finalize_move(piece)
+        self.game.clear_double_jump()
         if self.has_double_jump():
             self.game.set_must_double_jump_next(self.toRow, self.toCol)
         else:
@@ -95,6 +96,8 @@ class BoardMove():
     def finalize_move(self, piece: Piece):
         self.from_space.delete_piece()
         self.destination_space.add_piece(piece)
+        if self.toRow == 0 or self.toRow == 7:
+            piece.crown()
 
 
     

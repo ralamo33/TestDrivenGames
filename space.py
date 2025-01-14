@@ -4,7 +4,7 @@ from teams import Team
 
 class Space:
     def __init__(self):
-        self.piece = None
+        self.piece: Piece = None
 
     def add_piece(self, piece):
         self.piece = piece
@@ -23,4 +23,7 @@ class Space:
     def display(self):
         if self.piece is None:
             return "_"
-        return self.piece.team[0]
+        if self.piece.is_crowned():
+            return self.piece.team[0]
+        else:
+            return self.piece.team[0].lower()
