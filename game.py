@@ -27,6 +27,7 @@ class Game():
         self.must_double_jump_coordinate = (row, col)
     
     def change_turn(self):
+        self.must_double_jump_coordinate = None
         if self.turn == Team.WHITE:
             self.turn = Team.BLACK
         else:

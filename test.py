@@ -158,6 +158,9 @@ class DoubleJumpTests(unittest.TestCase):
         self.assertEqual(double_jump_piece, self.board.get_space(5, 0).get_piece())
         self.assertTrue(self.board.get_space(2, 1).is_empty())
         self.assertTrue(self.board.get_space(4, 1).is_empty())
+        print(self.board.display())
+        print(self.board.turn)
+        self.board.move(Move(5, 4, 4, 3))
     
     def test_invalid_double_jump_move(self):
         self.board.move(Move(1, 0, 3, 2))
